@@ -1,0 +1,16 @@
+export const configENV = {
+  port: process.env.PORT || 3000,
+  //   nodeEnv: process.env.NODE_ENV || 'development',
+  //   mongoUri: process.env.MONGO_URI || 'mongodb://localhost:27017/myapp',
+  jwtSecret: process.env.JWT_SECRET,
+  //   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  //   logLevel: process.env.LOG_LEVEL || 'info',
+  //   smtpHost: process.env.SMTP_HOST,
+  //   smtpPort: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
+  //   smtpUser: process.env.SMTP_USER,
+  //   smtpPass: process.env.SMTP_PASS,
+  //   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  //   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  //   awsRegion: process.env.AWS_REGION || 'us-east-1',
+  //   redisUrl: process.env.REDIS_URL || 'redis://localhost:6379',
+};
