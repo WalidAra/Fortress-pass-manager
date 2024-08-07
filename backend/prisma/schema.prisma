@@ -12,3 +12,112 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String   @id @default(uuid()) // Unique identifier
+  email    String   @unique // Unique email per user
+  password String // Consider using a non-null field
+  provider Provider
+  name     String
+  image    String? // Optional profile image URL
+
+  createdAt DateTime @default(now()) // Account creation timestamp
+  updatedAt DateTime @updatedAt // Automatic update timestamp
+
+  accounts  Account[]
+  recents   Recent[]
+  favorites Favorite[]
+
+  @@index([email]) // Index for fast email lookup
+}
+
+enum Provider {
+  DIRECT
+  GOOGLE
+  FACEBOOK
+}
+
+model Account {
+  id    String @id @default(uuid()) // Unique identifier
+  title String // Title of the account
+
+  username       String // Credential username
+  password       String // Account password
+  flag           Flag // Type of account
+  globalCategory GlobalCategory // General category of account
+  category       Category // User-defined category
+  note           String // Note for account
+  userId         String // Foreign key to User
+
+  createdAt  DateTime  @default(now()) // Account creation timestamp
+  updatedAt  DateTime  @updatedAt // Automatic update timestamp
+  lastUsedAt DateTime? // Last usage timestamp (optional)
+
+  User      User       @relation(fields: [userId], references: [id])
+  recents   Recent[]
+  favorites Favorite[]
+CollectionAccount CollectionAccount[]
+  @@index([title]) // Index for fast title lookup
+}
+
+enum Flag {
+  SOCIAL_MEDIA
+  STREAMING_SERVICE
+  ONLINE_SHOPPING
+  FINANCE
+  WORK
+  GAMING
+}
+
+enum GlobalCategory {
+  SAVED_PASSWORD
+  SAVED_CREDENTIALS
+}
+
+enum Category {
+  PERSONAL
+  FINANCE
+  PROFESSIONAL
+}
+
+model Recent {
+  id        String @id @default(uuid()) // Unique identifier
+  accountId String // Foreign key to Account
+  userId    String // Foreign key to User
+
+  accessedAt DateTime @default(now()) // Access timestamp
+
+  User    User    @relation(fields: [userId], references: [id])
+  Account Account @relation(fields: [accountId], references: [id])
+
+  @@index([userId, accountId]) // Index for fast user-account lookup
+}
+
+model Favorite {
+  id        String @id @default(uuid()) // Unique identifier
+  accountId String // Foreign key to Account
+  userId    String // Foreign key to User
+
+  createdAt DateTime @default(now()) // Timestamp for when it was favorited
+
+  User    User    @relation(fields: [userId], references: [id])
+  Account Account @relation(fields: [accountId], references: [id])
+    
+  @@index([userId, accountId]) // Index for fast user-account lookup
+}
+
+model Collection {
+  id     String @id @default(uuid()) // Unique identifier
+  name   String
+  userId String
+
+  CollectionAccount CollectionAccount[]
+}
+
+model CollectionAccount {
+  id           String @id @default(uuid()) // Unique identifier
+  collectionId String
+  accountId    String
+  Account Account @relation(fields: [accountId], references: [id])
+  Collection Collection @relation(fields: [collectionId], references: [id])
+}

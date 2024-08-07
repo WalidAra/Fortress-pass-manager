@@ -1,12 +1,22 @@
 import jwt from "jsonwebtoken";
-import { configENV } from "@/config/config.env";
-
+import { configENV } from "../config/env.config";
 export class JwtHelper {
   private static jwtSecret = configENV.jwtSecret;
 
-  static generateToken(payload: any): string {
+  static generateToken(payload: object, recall: boolean, include?: boolean) {
     if (this.jwtSecret) {
-      return jwt.sign(payload, this.jwtSecret, { expiresIn: "1d" });
+      const accessToken = jwt.sign(payload, this.jwtSecret, {
+        expiresIn: recall ? "24h" : "1h", // accessToken
+      });
+
+      if (include === true) {
+        const refreshToken = jwt.sign(payload, this.jwtSecret, {
+          expiresIn: recall ? "30d" : "1d", // refreshToken
+        });
+        return { accessToken, refreshToken };
+      }
+
+      return { accessToken };
     }
     throw new Error("JWT secret is not defined");
   }

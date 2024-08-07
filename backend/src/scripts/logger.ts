@@ -6,6 +6,7 @@ import config from "../util/config.matcher";
 const logger = (app: Express, PORT: number) => {
   
   const endpoints = expressListEndpoints(app);
+  
   console.log("\n========= Welcome To ALLWA =========\n");
   console.log(chalk.yellow(`- Total endpoints: ${endpoints.length}`));
   console.log(chalk.blue(`- Server is running on port:`),PORT);

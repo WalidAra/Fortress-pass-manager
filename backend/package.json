@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^5.18.0",
     "@types/swagger-ui-express": "^4.1.6",
     "bcrypt": "^5.1.1",
     "chalk": "^4.1.2",
