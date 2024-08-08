@@ -1,9 +1,12 @@
 import jwt from "jsonwebtoken";
 import { configENV } from "../config/env.config";
+
 export class JwtHelper {
   private static jwtSecret = configENV.jwtSecret;
 
   static generateToken(payload: object, recall: boolean, include?: boolean) {
+    console.log(this.jwtSecret);
+    
     if (this.jwtSecret) {
       const accessToken = jwt.sign(payload, this.jwtSecret, {
         expiresIn: recall ? "24h" : "1h", // accessToken
@@ -22,12 +25,20 @@ export class JwtHelper {
   }
 
   static verifyToken(token: string): any {
+    if (!this.jwtSecret) {
+      throw new Error("JWT secret is not defined");
+    }
+
     try {
-      if (this.jwtSecret) {
-        return jwt.verify(token, this.jwtSecret);
-      }
+      return jwt.verify(token, this.jwtSecret);
     } catch (error) {
-      throw new Error("Invalid token");
+      if (error instanceof jwt.TokenExpiredError) {
+        throw new Error("Token has expired");
+      } else if (error instanceof jwt.JsonWebTokenError) {
+        throw new Error("Invalid token");
+      } else {
+        throw new Error("Internal server error during token verification");
+      }
     }
   }
 

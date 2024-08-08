@@ -12,6 +12,14 @@ export const register = async (req: Request, res: Response) => {
   };
 
   try {
+    if (!email || !password) {
+      return res.status(400).json({
+        status: false,
+        message: "Email and password are required",
+        data: null,
+      });
+    }
+
     const user = await registerService(email, password);
 
     if (!user) {
@@ -51,7 +59,7 @@ export const register = async (req: Request, res: Response) => {
     }
     res.status(500).json({
       status: false,
-      message: "Server is not running",
+      message: "Internal server error",
       data: null,
     });
   }
@@ -65,6 +73,13 @@ export const login = async (req: Request, res: Response) => {
   };
 
   try {
+    if (!email || !password) {
+      return res.status(400).json({
+        status: false,
+        message: "Email and password are required",
+        data: null,
+      });
+    }
     const user = await loginService(email);
 
     if (!user) {
@@ -114,7 +129,7 @@ export const login = async (req: Request, res: Response) => {
     }
     res.status(500).json({
       status: false,
-      message: "Server is not running",
+      message: "Internal server error",
       data: null,
     });
   }
@@ -140,7 +155,6 @@ export const refresh = async (req: Request, res: Response) => {
         accessToken,
       },
     });
-
   } catch (error) {
     if (error instanceof Error) {
       console.error("~> Error :", error.message);
@@ -149,7 +163,7 @@ export const refresh = async (req: Request, res: Response) => {
     }
     res.status(500).json({
       status: false,
-      message: "Server is not running",
+      message: "Internal server error",
       data: null,
     });
   }

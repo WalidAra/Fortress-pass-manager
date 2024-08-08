@@ -1,9 +1,9 @@
 import express from "express";
-import checkHealth from "./middleware/checkHealth";
+import { checkHealth } from "./middleware";
 const router = express.Router();
-import { apiRouter } from "./core/api";
+import { api } from "./core/api";
 
 router.get("/health", checkHealth);
-router.use("/api", apiRouter);
+router.use("/api", api);
 
 export default router;

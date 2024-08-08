@@ -1,1 +1,1 @@
-export { default as apiRouter } from "../api/routes";
+export { default as api } from "../api/routes";

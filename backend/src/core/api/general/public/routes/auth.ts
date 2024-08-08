@@ -1,5 +1,4 @@
-
-import { refresh, register , login } from "../../controllers";
+import { refresh, register, login } from "../../../../controllers";
 import express from "express";
 const router = express.Router();
 

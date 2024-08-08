@@ -1,7 +1,6 @@
 // src/index.ts
 console.clear();
 
-import dotenv from "dotenv";
 import express, { Express } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
@@ -9,8 +8,7 @@ import YAML from "yamljs";
 
 import { configENV } from "./config";
 import router from "./routes";
-import { logger } from "./helpers";
-dotenv.config();
+import { logger } from "./scripts";
 
 const PORT = configENV.port || 3000;
 const swaggerDocument = YAML.load("./swagger.yaml");

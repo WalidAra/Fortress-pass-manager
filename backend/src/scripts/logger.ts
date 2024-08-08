@@ -27,7 +27,7 @@ const logger = (app: Express, PORT: number) => {
         const colorFunction = config.methods[method] || chalk.white;
         console.log(
           colorFunction(
-            `~~> ${endpoint.methods.join(", ")} `,
+            `~~> ${endpoint.methods.join(", ")}`,
             chalk.green(`${endpoint.path}`)
           )
         );
