@@ -62,10 +62,12 @@ export const updateProfile = async (req: Request, res: Response) => {
       },
     });
 
+    const { password: undefined, ...userWithoutPassword } = updatedUser;
+
     res.status(200).json({
       status: true,
       message: "User updated successfully",
-      data: updatedUser,
+      data: userWithoutPassword,
     });
   } catch (error) {
     if (error instanceof Error) {

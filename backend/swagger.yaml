@@ -5,15 +5,17 @@ info:
   description: API for the backend services
 
 servers:
-  - url: http://localhost:2198/api/
+  - url: http://localhost:2198/
+
 paths:
   /health:
     get:
-      summary: Check health status
-      description: Returns the health status of the API
+      summary: Health check endpoint
+      tags:
+        - health
       responses:
         '200':
-          description: Successful response
+          description: Health check passed
           content:
             application/json:
               schema:
@@ -27,7 +29,7 @@ paths:
                     type: object
                     nullable: true
         '500':
-          description: Internal server error
+          description: Health check failed
           content:
             application/json:
               schema:
@@ -40,4 +42,263 @@ paths:
                   data:
                     type: object
                     nullable: true
- 
+
+  /api/general/public/auth/register:
+    post:
+      summary: Register a new user
+      tags:
+        - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                recall:
+                  type: boolean
+      responses:
+        '200':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+
+  /api/general/public/auth/login:
+    post:
+      summary: Log in a user
+      tags:
+        - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                recall:
+                  type: boolean
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+
+  /api/general/public/auth/refresh:
+    get:
+      summary: Refresh authentication token
+      tags:
+        - auth
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+
+  /api/general/private/client/profile:
+    get:
+      summary: Get client profile
+      tags:
+        - client
+      responses:
+        '200':
+          description: Profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+
+  /api/general/private/client/update:
+    put:
+      summary: Update client profile
+      tags:
+        - client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                recall:
+                  type: boolean
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+
+  /api/general/private/client/delete:
+    delete:
+      summary: Delete client profile
+      tags:
+        - client
+      responses:
+        '200':
+          description: Profile deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    nullable: true

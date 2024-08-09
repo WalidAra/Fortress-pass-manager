@@ -5,7 +5,6 @@ export class JwtHelper {
   private static jwtSecret = configENV.jwtSecret;
 
   static generateToken(payload: object, recall: boolean, include?: boolean) {
-    console.log(this.jwtSecret);
     
     if (this.jwtSecret) {
       const accessToken = jwt.sign(payload, this.jwtSecret, {

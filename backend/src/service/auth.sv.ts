@@ -31,11 +31,12 @@ export const registerService = async (email: string, password: string) => {
   return user;
 };
 
-export const loginService = async (email: string) => {
+export const loginService = async (email: string, include?: boolean) => {
   const isUser = await prisma.user.findUnique({
     where: {
       email,
     },
+    select: { ...userSelection, password: include ? true : false },
   });
 
   return isUser;

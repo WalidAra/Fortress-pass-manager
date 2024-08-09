@@ -51,6 +51,7 @@ export const register = async (req: Request, res: Response) => {
         accessToken,
       },
     });
+
   } catch (error) {
     if (error instanceof Error) {
       console.error("~> Error :", error.message);
@@ -80,7 +81,7 @@ export const login = async (req: Request, res: Response) => {
         data: null,
       });
     }
-    const user = await loginService(email);
+    const user = await loginService(email , true);
 
     if (!user) {
       return res.status(402).json({
@@ -113,11 +114,12 @@ export const login = async (req: Request, res: Response) => {
       path: "/",
     });
 
+    const { password: undefined, ...userWithoutPassword } = user;
     res.status(200).json({
       status: true,
       message: "User logged in successfully",
       data: {
-        ...user,
+        ...userWithoutPassword,
         accessToken,
       },
     });
@@ -137,6 +139,7 @@ export const login = async (req: Request, res: Response) => {
 
 export const refresh = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken as string;
+  
   try {
     if (!refreshToken) {
       return res.status(401).json({
@@ -148,7 +151,7 @@ export const refresh = async (req: Request, res: Response) => {
     const { id, recall } = JwtHelper.decodeToken(refreshToken);
     const { accessToken } = JwtHelper.generateToken({ id }, recall, false);
 
-    res.status(200).json({
+    res.status(201).json({
       status: true,
       message: "Token refreshed successfully",
       data: {
