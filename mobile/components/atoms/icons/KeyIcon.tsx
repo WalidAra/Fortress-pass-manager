@@ -1,7 +1,7 @@
 import React from 'react'
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Circle, Path } from 'react-native-svg';
 
-const LoadingIcon = ({ color = "#000", height, size, width }: Icon) => {
+const KeyIcon = ({ color = "#000", height, size, width }: Icon) => {
   return (
     <Svg
       stroke={color}
@@ -13,9 +13,11 @@ const LoadingIcon = ({ color = "#000", height, size, width }: Icon) => {
       height={size || height || 25}
       width={size || width || 25}
     >
-      <Path d="M21 12a9 9 0 1 1-6.219-8.56"></Path>
+      <Circle cx="7.5" cy="15.5" r="5.5"></Circle>
+      <Path d="m21 2-9.6 9.6"></Path>
+      <Path d="m15.5 7.5 3 3L22 7l-3-3"></Path>
     </Svg>
   );
 };
 
-export default LoadingIcon
+export default KeyIcon

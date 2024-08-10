@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "ALLWA",
+    "creds",
     "nativewind",
     "openapi",
     "Pressable",
@@ -29,7 +30,5 @@
   ],
   "auto-close-tag.disableOnLanguage": [],
   "workbench.colorCustomizations": {},
-  "editor.codeActionsOnSave": {
-  
-  }
+  "editor.codeActionsOnSave": {}
 }

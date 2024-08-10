@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import React from "react";
-import { OAuthContainer } from "../molecules";
 import { Link } from "expo-router";
+import { OAuthContainer } from "../pages/auth";
 
 type Props = {
   isSignIn?: boolean;

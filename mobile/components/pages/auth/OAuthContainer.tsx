@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
-import { FacebookIcon, GoogleIcon } from "../atoms/icons";
+import { FacebookIcon, GoogleIcon } from "@/components/atoms/icons";
+
 
 const OAuthContainer = () => {
   return (
