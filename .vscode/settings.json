@@ -1,3 +1,35 @@
 {
-  "cSpell.words": ["ALLWA", "nativewind", "openapi", "tailwindcss"]
+  "cSpell.words": [
+    "ALLWA",
+    "nativewind",
+    "openapi",
+    "Pressable",
+    "tailwindcss"
+  ],
+  "auto-close-tag.activationOnLanguage": [
+    "xml",
+    "php",
+    "blade",
+    "ejs",
+    "jinja",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "plaintext",
+    "markdown",
+    "vue",
+    "liquid",
+    "erb",
+    "lang-cfml",
+    "cfml",
+    "HTML (EEx)",
+    "HTML (Eex)",
+    "plist"
+  ],
+  "auto-close-tag.disableOnLanguage": [],
+  "workbench.colorCustomizations": {},
+  "editor.codeActionsOnSave": {
+  
+  }
 }
