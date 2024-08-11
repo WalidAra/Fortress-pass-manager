@@ -1,7 +1,23 @@
+import { prisma } from "../../config";
 import { Request, Response } from "express";
 
 export const markRecentAccount = async (req: Request, res: Response) => {
+  const { id } = (req as any).user;
+  const { accountId } = req.body;
   try {
+    const recentAccount = await prisma.recent.create({
+      data: {
+        accountId,
+        userId: id,
+      },
+    });
+
+    return res.status(200).json({
+      status: true,
+      message: "Recent account added successfully",
+      data: recentAccount,
+    });
+
   } catch (error) {
     if (error instanceof Error) {
       console.error("~> Error :", error.message);

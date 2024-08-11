@@ -10,7 +10,7 @@ const useFetch = async ({
   body,
   accessToken,
 }: Fetch) => {
-  const [response, setResponse] = useState<FetchResponse | null>(null);
+  const [response, setResponse] = useState<FetchResponse<any> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const url = `${API_URL}${domain}/${
@@ -31,7 +31,7 @@ const useFetch = async ({
         };
 
         const res = await axios(axiosConfig);
-        setResponse(res.data as FetchResponse);
+        setResponse(res.data as FetchResponse<any>);
       } catch (error: any) {
         setResponse({
           status: false,

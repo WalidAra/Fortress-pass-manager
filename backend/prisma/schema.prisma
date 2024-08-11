@@ -54,7 +54,7 @@ model Account {
   updatedAt  DateTime  @updatedAt // Automatic update timestamp
   lastUsedAt DateTime? // Last usage timestamp (optional)
 
-  User      User       @relation(fields: [userId], references: [id])
+  User      User       @relation(fields: [userId], references: [id] , onDelete: Cascade)
   recents   Recent[]
   favorites Favorite[]
 CollectionAccount CollectionAccount[]
@@ -89,7 +89,7 @@ model Recent {
   accessedAt DateTime @default(now()) // Access timestamp
 
   User    User    @relation(fields: [userId], references: [id])
-  Account Account @relation(fields: [accountId], references: [id])
+  Account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@index([userId, accountId]) // Index for fast user-account lookup
 }
@@ -102,7 +102,7 @@ model Favorite {
   createdAt DateTime @default(now()) // Timestamp for when it was favorited
 
   User    User    @relation(fields: [userId], references: [id])
-  Account Account @relation(fields: [accountId], references: [id])
+  Account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
     
   @@index([userId, accountId]) // Index for fast user-account lookup
 }
@@ -119,6 +119,6 @@ model CollectionAccount {
   id           String @id @default(uuid()) // Unique identifier
   collectionId String
   accountId    String
-  Account Account @relation(fields: [accountId], references: [id])
-  Collection Collection @relation(fields: [collectionId], references: [id])
+  Account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  Collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
 }

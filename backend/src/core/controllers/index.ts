@@ -20,4 +20,8 @@ export {
 
 export { markRecentAccount } from "./recent.controller";
 export { markFavAccount } from "./favorite.controller";
-export { createCollection } from "./collection.controller";
+export {
+  createCollection,
+  addNewAccountToCollection,
+  deleteCollection,
+} from "./collection.controller";
