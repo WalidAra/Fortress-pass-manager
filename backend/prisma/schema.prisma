@@ -41,13 +41,14 @@ model Account {
   id    String @id @default(uuid()) // Unique identifier
   title String // Title of the account
 
-  username       String // Credential username
+  credential       String // Credential username
   password       String // Account password
   flag           Flag // Type of account
   globalCategory GlobalCategory // General category of account
   category       Category // User-defined category
   note           String // Note for account
   userId         String // Foreign key to User
+  image          String? // URL to image
 
   createdAt  DateTime  @default(now()) // Account creation timestamp
   updatedAt  DateTime  @updatedAt // Automatic update timestamp
@@ -70,8 +71,8 @@ enum Flag {
 }
 
 enum GlobalCategory {
-  SAVED_PASSWORD
-  SAVED_CREDENTIALS
+  SAVED_PASSWORD 
+  SAVED_CREDENTIALS 
 }
 
 enum Category {

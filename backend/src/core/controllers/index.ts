@@ -1,7 +1,23 @@
-export { register } from "./auth.controller";
-export { login } from "./auth.controller";
-export { refresh } from "./auth.controller";
+export { register, login, refresh } from "./auth.controller";
 
-export { getClientProfile } from "./client.controller";
-export { updateProfile } from "./client.controller";
-export { deleteProfile } from "./client.controller";
+export {
+  getClientProfile,
+  updateProfile,
+  deleteProfile,
+} from "./client.controller";
+
+export {
+  createAccount,
+  deleteAccount,
+  updateAccount,
+  getUserAccounts,
+  getSavedCreds,
+  getSavedPasswords,
+  getFavAccounts,
+  getRecentAccounts,
+  getAccountsByCategory,
+} from "./account.controller";
+
+export { markRecentAccount } from "./recent.controller";
+export { markFavAccount } from "./favorite.controller";
+export { createCollection } from "./collection.controller";
