@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <SafeAreaView className="flex-1">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <ScrollView className="flex-1  w-full bg-background px-6">
+      <ScrollView className="flex-1 w-full bg-background px-6">
         <Header />
         <AddNewCard />
         <UserCredStatus />

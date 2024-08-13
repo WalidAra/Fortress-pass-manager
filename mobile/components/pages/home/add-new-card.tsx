@@ -3,6 +3,7 @@ import React from "react";
 import IconFlag from "@/components/molecules/IconFlag";
 import ShieldIcon from "@/components/atoms/icons/ShieldIcon";
 import { TouchableOpacity } from "react-native";
+import { Link } from "expo-router";
 
 const AddNewCard = () => {
   return (
@@ -18,12 +19,14 @@ const AddNewCard = () => {
         </Text>
       </View>
 
-      <TouchableOpacity
-        activeOpacity={0.8}
-        className="w-full rounded-xl bg-secondary border border-border flex items-center justify-center mt-4 py-2 px-4"
-      >
-        <Text className="text-foreground font-medium">Add new +</Text>
-      </TouchableOpacity>
+      <Link href={"/create"} asChild>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          className="w-full rounded-xl bg-secondary border border-border flex items-center justify-center mt-4 py-2 px-4"
+        >
+          <Text className="text-foreground font-medium">Add new +</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };

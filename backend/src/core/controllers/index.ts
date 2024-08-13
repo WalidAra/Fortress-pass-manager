@@ -16,10 +16,11 @@ export {
   getFavAccounts,
   getRecentAccounts,
   getAccountsByCategory,
+  getAccountByID,
 } from "./account.controller";
 
 export { markRecentAccount } from "./recent.controller";
-export { markFavAccount } from "./favorite.controller";
+export { markFavAccount, deleteFavAccount } from "./favorite.controller";
 export {
   createCollection,
   addNewAccountToCollection,

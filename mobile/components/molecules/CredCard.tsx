@@ -1,6 +1,7 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import RightArrow from "../atoms/icons/RightArrow";
+import { Link } from "expo-router";
 
 type Props = {
   image: string | null;
@@ -10,9 +11,9 @@ type Props = {
 
 const CredCard = () => {
   return (
-    <View className="flex w-full flex-row rounded-xl justify-between items-center p-2 border border-input">
+    <View className="flex w-full bg-slate-50 flex-row rounded-xl justify-between items-center p-2 border border-input">
       <View className="flex flex-row space-x-2 items-center ">
-        <View className="border border-input  rounded-md" >
+        <View className="border border-input  rounded-md">
           <Image
             className="w-11 h-11 rounded-xl"
             source={{
@@ -28,10 +29,14 @@ const CredCard = () => {
           </Text>
         </View>
       </View>
-
-      <View className="rounded-full p-1 border border-border">
-        <RightArrow size={20} />
-      </View>
+      <Link href={`/cred/123`} asChild>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          className="rounded-full p-1 border border-border"
+        >
+          <RightArrow size={20} />
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };

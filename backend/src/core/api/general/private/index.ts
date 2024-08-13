@@ -7,7 +7,7 @@ import collectionRoutes from "./routes/collection";
 import recentRoutes from "./routes/recent";
 
 router.use("/client", clientRouter);
-router.use("/account", accountRoutes);
+router.use("/accounts", accountRoutes);
 router.use("/favorite", favoriteRoutes);
 router.use("/collection", collectionRoutes);
 router.use("/recent", recentRoutes);

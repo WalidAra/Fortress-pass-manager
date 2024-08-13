@@ -5,6 +5,46 @@ import { Request, Response } from "express";
 
 const aes = new AES();
 
+export const getAccountByID = async (req: Request, res: Response) => {
+  const { id } = (req as any).user;
+  const { accountId } = req.params;
+
+  try {
+    const account = await prisma.account.findUnique({
+      where: {
+        id: accountId,
+        userId: id,
+      },
+      select: accountSelection,
+    });
+
+    if (!account) {
+      return res.status(404).json({
+        status: false,
+        message: "Account not found",
+        data: null,
+      });
+    }
+
+    res.status(200).json({
+      status: true,
+      message: "Get account by id successfully",
+      data: account,
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("~> Error :", error.message);
+    } else {
+      console.error("An unknown error occurred");
+    }
+    res.status(500).json({
+      status: false,
+      message: "Internal server error",
+      data: null,
+    });
+  }
+};
+
 export const getAccountsByCategory = async (req: Request, res: Response) => {
   const { id } = (req as any).user;
   const { category } = req.params;
@@ -166,12 +206,16 @@ export const getSavedPasswords = async (req: Request, res: Response) => {
 
 export const getUserAccounts = async (req: Request, res: Response) => {
   const { id } = (req as any).user;
+  console.log("====================================");
+  console.log("here", id);
+  console.log("====================================");
   try {
     const accounts = await prisma.account.findMany({
       where: {
         userId: id,
       },
     });
+
     res.status(200).json({
       status: true,
       message: "Get user accounts successfully",
@@ -193,8 +237,16 @@ export const getUserAccounts = async (req: Request, res: Response) => {
 
 export const createAccount = async (req: Request, res: Response) => {
   const { id } = (req as any).user;
-  const { credential, password, flag, globalCategory, category, note, title } =
-    req.body;
+  const {
+    credential,
+    password,
+    flag,
+    globalCategory,
+    category,
+    note,
+    title,
+    image,
+  } = req.body;
   try {
     const encryptedPassword = aes.encrypt(password);
     const account = await prisma.account.create({
@@ -207,6 +259,7 @@ export const createAccount = async (req: Request, res: Response) => {
         userId: id,
         flag,
         title,
+        image,
       },
     });
 

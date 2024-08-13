@@ -7,6 +7,7 @@ const accountSelection = {
   flag: true,
   globalCategory: true,
   id: true,
+  password: true,
 };
 
 export default accountSelection;

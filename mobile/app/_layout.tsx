@@ -33,6 +33,12 @@ export default function RootLayout() {
             options={{ headerShown: false, presentation: "transparentModal" }}
           />
           <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="create" options={{ headerShown: false }} />
+          <Stack.Screen name="cred/[id]" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(global category)"
+            options={{ headerShown: false }}
+          />
         </Stack>
       </AuthProvider>
     </NativeBaseProvider>
