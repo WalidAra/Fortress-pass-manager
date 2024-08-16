@@ -25,10 +25,11 @@ export const getAccountByID = async (req: Request, res: Response) => {
       });
     }
 
+    const decryptedPassword = aes.decrypt(account.password);
     res.status(200).json({
       status: true,
       message: "Get account by id successfully",
-      data: account,
+      data: {...account, password: decryptedPassword},
     });
   } catch (error) {
     if (error instanceof Error) {
