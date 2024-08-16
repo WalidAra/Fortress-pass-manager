@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import RightArrow from "../atoms/icons/RightArrow";
 import { Link } from "expo-router";
+import defaultImageCred from "@/constants/defaultImageCred";
 
 type Props = {
   account: Account;
@@ -18,7 +19,7 @@ const CredCard = ({ account }: Props) => {
             source={{
               uri:
                 account?.image ||
-                "https://i.pinimg.com/564x/33/c8/c2/33c8c27a021ba1f83c6258e9c0e91038.jpg",
+                defaultImageCred,
             }}
           />
         </View>

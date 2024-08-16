@@ -11,7 +11,7 @@ const Home = () => {
         <Header />
         <AddNewCard />
         <UserCredStatus />
-        <Main />
+        {/* <Main /> */}
       </ScrollView>
     </SafeAreaView>
   );

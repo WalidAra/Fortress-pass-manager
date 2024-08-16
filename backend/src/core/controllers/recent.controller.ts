@@ -5,6 +5,22 @@ export const markRecentAccount = async (req: Request, res: Response) => {
   const { id } = (req as any).user;
   const { accountId } = req.body;
   try {
+
+    const existingRecent = await prisma.recent.findFirst({
+      where: {
+        accountId,
+        userId: id,
+      },
+    });
+
+    if (existingRecent) {
+      return res.status(400).json({
+        status: false,
+        message: "Recent account already exists",
+        data: null,
+      });
+    }
+
     const recentAccount = await prisma.recent.create({
       data: {
         accountId,

@@ -1,0 +1,1 @@
+export default "https://i.pinimg.com/564x/33/c8/c2/33c8c27a021ba1f83c6258e9c0e91038.jpg";

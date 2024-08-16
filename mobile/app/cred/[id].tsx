@@ -12,13 +12,14 @@ import ImageIcon from "@/components/atoms/icons/ImageIcon";
 import MailIcon from "@/components/atoms/icons/MailIcon";
 import Key2Icon from "@/components/atoms/icons/Key2Icon";
 import { useAuth, useFetch } from "@/hooks";
+import defaultImageCred from "@/constants/defaultImageCred";
 
 const AccountScreen = () => {
   const { id } = useLocalSearchParams();
 
   const { token } = useAuth();
 
-  const { loading, response } = useFetch({
+  const { loading, response } = useFetch<Account>({
     domain: "general",
     endpoint: id as string,
     method: "GET",
@@ -27,9 +28,6 @@ const AccountScreen = () => {
     accessToken: token,
   });
 
-  console.log('====================================');
-  console.log(response);
-  console.log('====================================');
 
   return (
     <SafeAreaView className="flex-1">
@@ -42,13 +40,14 @@ const AccountScreen = () => {
             <Image
               className="w-11 h-11 rounded-xl"
               source={{
-                uri: "https://i.pinimg.com/736x/29/95/95/29959595fe22edde8408b060d3ac3d82.jpg",
+                uri: response?.data.image || defaultImageCred,
               }}
             />
           </View>
           <TextInput
             className="py-2 flex-1 px-4 rounded-xl border border-border"
             placeholder="Figma account"
+            value={response?.data.title + " account"}
           />
 
           <View className="rounded-xl p-2 border border-border">
@@ -64,7 +63,11 @@ const AccountScreen = () => {
             <View className="">
               <MailIcon size={22} />
             </View>
-            <TextInput className=" flex-1 " placeholder="Figma account" />
+            <TextInput
+              value={response?.data.credential}
+              className=" flex-1 "
+              placeholder="Figma account"
+            />
           </View>
         </View>
         <View className="space-y-2 w-full">
@@ -73,7 +76,12 @@ const AccountScreen = () => {
             <View className="">
               <Key2Icon size={22} />
             </View>
-            <TextInput className=" flex-1 " placeholder="Figma account" />
+            <TextInput
+              secureTextEntry
+              value={response?.data.password}
+              className=" flex-1 "
+              placeholder="Figma account"
+            />
           </View>
         </View>
         <View className="space-y-2 w-full">
@@ -84,6 +92,7 @@ const AccountScreen = () => {
               placeholder="Enter description here"
               multiline={true}
               textAlignVertical="top"
+              value={response?.data.note}
             />
           </View>
         </View>
