@@ -34,6 +34,7 @@ export default function RootLayout() {
           />
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="create" options={{ headerShown: false }} />
+          <Stack.Screen name="user-profile" />
           <Stack.Screen name="cred/[id]" options={{ headerShown: false }} />
           <Stack.Screen
             name="(global category)"

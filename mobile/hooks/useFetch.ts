@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { API_URL, HEADER } from "@/config";
 
-const useFetch = async ({
+const useFetch = <T>({
   domain,
   endpoint,
   feature,
   method,
   body,
   accessToken,
-}: Fetch) => {
-  const [response, setResponse] = useState<FetchResponse<any> | null>(null);
+  includeToken = false,
+}: Fetch): { response: FetchResponse<T> | null; loading: boolean } => {
+  
+  const [response, setResponse] = useState<FetchResponse<T> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const url = `${API_URL}${domain}/${
-    accessToken ? "private" : "public"
+    includeToken ? "private" : "public"
   }/${feature}/${endpoint}`;
 
   useEffect(() => {
@@ -25,26 +27,35 @@ const useFetch = async ({
           url,
           headers: {
             "Content-Type": "application/json",
-            ...(accessToken && { [HEADER]: accessToken }),
+            ...(includeToken && { [HEADER]: `Bearer ${accessToken}` }),
           },
           data: body,
         };
 
         const res = await axios(axiosConfig);
-        setResponse(res.data as FetchResponse<any>);
+        setResponse(res.data as FetchResponse<T>);
       } catch (error: any) {
-        setResponse({
-          status: false,
-          message: "Internal server error",
-          data: null,
-        });
+        if (axios.isAxiosError(error)) {
+          setResponse(error.response?.data as FetchResponse<T>);
+        } else {
+          setResponse({
+            status: false,
+            message: "An unexpected error occurred",
+            data: null,
+          } as FetchResponse<T>);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    getData();
-  }, []);
+    if (
+      (accessToken && includeToken === true) ||
+      (includeToken === false && !accessToken)
+    ) {
+      getData();
+    }
+  }, [domain, endpoint, feature, method, body, accessToken, url, includeToken]);
 
   return { response, loading };
 };

@@ -1,6 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import FormLayout from "@/components/layouts/FormLayout";
+import FormLayout from "@/components/pages/auth/FormLayout";
 import { useAuth, useAxios } from "@/hooks";
 import { asyncStorage } from "@/lib";
 import { HEADER } from "@/config";
@@ -9,6 +9,7 @@ import LoadingReq from "@/components/molecules/LoadingReq";
 
 const SignUp = () => {
   const { setToken } = useAuth();
+  const [error, setError] = useState<string>("")
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -31,11 +32,16 @@ const SignUp = () => {
         },
       });
       setIsLoading(false);
+      console.log('====================================');
+      console.log('res : ' , res);
+      console.log('====================================');
 
       if (res.status == true) {
         await asyncStorage.setItem(HEADER, res.data.accessToken);
         setToken(res.data.accessToken);
         router.replace("/home");
+      }else if(res.status === false) {
+        setError(res.message);
       }
     }
   };
@@ -67,6 +73,12 @@ const SignUp = () => {
           secureTextEntry
         />
       </View>
+
+      {
+        error && <View className="w-full" >
+          <Text className="text-red-500 text-start">{error}</Text>
+        </View>
+      }
 
       <TouchableOpacity
         onPress={onSubmit}

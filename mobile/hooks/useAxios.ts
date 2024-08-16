@@ -1,16 +1,17 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { API_URL, HEADER } from "@/config";
 
-const useAxios = async ({
+const useAxios = async <T>({
   domain,
   endpoint,
   feature,
   method,
   body,
   accessToken,
-}: Fetch) => {
+  includeToken = false,
+}: Fetch): Promise<FetchResponse<T>> => {
   const url = `${API_URL}${domain}/${
-    accessToken ? "private" : "public"
+    includeToken ? "private" : "public"
   }/${feature}/${endpoint}`;
 
   try {
@@ -19,21 +20,22 @@ const useAxios = async ({
       url,
       headers: {
         "Content-Type": "application/json",
-        ...(accessToken && { [HEADER]: accessToken }),
+        ...(includeToken && { [HEADER]: accessToken }),
       },
       data: body,
     };
 
     const res = await axios(axiosConfig);
 
-    return res.data ;
-  } catch (error: any) {
-    console.error("Error in useAxios:", error);
-
+    return res.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return error.response?.data as FetchResponse<T>;
+    }
     return {
       status: false,
-      message: error.response?.data?.message || "Internal server error",
-      data: null,
+      message: "An unexpected error occurred",
+      data: null as unknown as T,
     };
   }
 };

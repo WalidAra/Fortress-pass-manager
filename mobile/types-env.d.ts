@@ -8,10 +8,11 @@ type Icon = {
 type Fetch = {
   domain: "general" | "mobile";
   accessToken?: string;
-  feature: "auth" | "client";
-  endpoint: "login" | "register" | "refresh" | "profile" | "update" | "delete";
+  feature: "auth" | "client"|"accounts"|"favorite"|"collection";
+  endpoint: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
   body?: object;
+  includeToken?: boolean;
 };
 
 type FetchResponse<T> = {

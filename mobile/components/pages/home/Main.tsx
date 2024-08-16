@@ -1,9 +1,19 @@
 import { FlatList, Text, View } from "react-native";
 import React from "react";
-import RightArrow from "@/components/atoms/icons/RightArrow";
 import CredCard from "@/components/molecules/CredCard";
+import { useAuth, useFetch } from "@/hooks";
 
 const Main = () => {
+  const { token } = useAuth();
+  const { loading, response } = useFetch({
+    domain: "general",
+    endpoint: "recentAccounts",
+    feature: "accounts",
+    method: "GET",
+    accessToken: token,
+    includeToken: true,
+  });
+
   const array = [
     {
       image: "https://example.com/image1.jpg",
@@ -38,21 +48,17 @@ const Main = () => {
   ];
   return (
     <View className="my-4 space-y-4">
-      <View className="w-full items-center flex-row justify-between">
+      <View className="w-full items-center flex-row justify-start">
         <Text className="text-foreground font-medium text-lg">
           Recently opened
         </Text>
-        <View className="flex-row items-center space-x-2">
-          <Text className="font-medium text-lg">Recent</Text>
-          <RightArrow size={22} />
-        </View>
       </View>
 
       <FlatList
         data={array}
         renderItem={({ index, item: { email, image, name } }) => <CredCard />}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-        scrollEnabled={false} // Prevent scrolling inside FlatList
+        scrollEnabled={false} 
       />
     </View>
   );

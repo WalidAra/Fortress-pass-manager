@@ -1,6 +1,6 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import FormLayout from "@/components/layouts/FormLayout";
+import FormLayout from "@/components/pages/auth/FormLayout";
 import { useAuth, useAxios } from "@/hooks";
 import LoadingReq from "@/components/molecules/LoadingReq";
 import { asyncStorage } from "@/lib";
@@ -15,12 +15,13 @@ const SignIn = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setToken } = useAuth();
+  const [error, setError] = useState<string>("");
 
   const onSubmit = async () => {
     setIsLoading(true);
 
     if (credentials.email && credentials.password) {
-      const res: FetchResponse<Client & accessToken> = await useAxios({
+      const res = await useAxios<Client & accessToken>({
         domain: "general",
         method: "POST",
         endpoint: "login",
@@ -30,12 +31,15 @@ const SignIn = () => {
           password: credentials.password,
         },
       });
+
       setIsLoading(false);
 
-      if (res.status == true) {
+      if (res.status === true) {
         await asyncStorage.setItem(HEADER, res.data.accessToken);
         setToken(res.data.accessToken);
         router.replace("/home");
+      } else if (res.status === false) {
+        setError(res.message);
       }
     }
   };
@@ -67,6 +71,8 @@ const SignIn = () => {
           secureTextEntry
         />
       </View>
+
+      {error && <Text className="text-red-500 ">{error}</Text>}
 
       <TouchableOpacity
         onPress={onSubmit}

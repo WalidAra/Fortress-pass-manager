@@ -20,9 +20,9 @@ router
   .get("favAccounts", getFavAccounts)
   .get("/category/:category", getAccountsByCategory)
   .put("/update", updateAccount)
-  .get("recentAccounts", getRecentAccounts)
+  .get("/recentAccounts", getRecentAccounts)
   .delete("/", deleteAccount)
-  .get("savedPasswords", getSavedPasswords)
-  .get("savedCreds", getSavedCreds);
+  .get("/savedPasswords", getSavedPasswords)
+  .get("/savedCreds", getSavedCreds);
 
 export default router;

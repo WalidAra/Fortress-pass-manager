@@ -11,7 +11,7 @@ const TabCategory = ({ children, title, isActive }: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      className=" flex items-center space-y-2 justify-center py-6  w-[32%] border border-border rounded-xl"
+      className=" flex items-center space-y-2 justify-center py-6  w-[30%] border border-border rounded-xl"
     >
       <View className="p-2 bg-slate-200 rounded-full">{children}</View>
       <Text className="text-xs font-semibold text-center">{title}</Text>
