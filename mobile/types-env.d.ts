@@ -8,7 +8,7 @@ type Icon = {
 type Fetch = {
   domain: "general" | "mobile";
   accessToken?: string;
-  feature: "auth" | "client"|"accounts"|"favorite"|"collection";
+  feature: "auth" | "client" | "accounts" | "favorite" | "collection";
   endpoint: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
   body?: object;
@@ -31,4 +31,44 @@ type Client = {
   name: string;
   image: string | null;
   createdAt: string;
+};
+
+type Account = {
+  category: "PERSONAL" | "FINANCE" | "PROFESSIONAL";
+  createdAt: string;
+  credential: string;
+  flag:
+    | "SOCIAL_MEDIA"
+    | "STREAMING_SERVICE"
+    | "ONLINE_SHOPPING"
+    | "FINANCE"
+    | "WORK"
+    | "GAMING";
+  globalCategory: "SAVED_PASSWORD" | "SAVED_CREDENTIALS";
+  id: string;
+  image: string | null;
+  lastUsedAt: string | null;
+  note: string;
+  password: string;
+  title: string;
+  updatedAt: string;
+  userId: string;
+};
+
+type Accounts = {
+  category: string;
+  credential: string;
+  flag:
+    | "SOCIAL_MEDIA"
+    | "STREAMING_SERVICE"
+    | "ONLINE_SHOPPING"
+    | "FINANCE"
+    | "WORK"
+    | "GAMING";
+  globalCategory: "SAVED_PASSWORD" | "SAVED_CREDENTIALS";
+  id: string;
+  image: string | null;
+  note:string;
+  password:string;
+  title: string;
 };

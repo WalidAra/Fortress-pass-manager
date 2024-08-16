@@ -15,60 +15,23 @@ import WalletIcon from "@/components/atoms/icons/WalletIcon";
 import CubeIcon from "@/components/atoms/icons/CubeIcon";
 import GemIcon from "@/components/atoms/icons/GemIcon";
 import CredCard from "@/components/molecules/CredCard";
+import { useAuth, useFetch } from "@/hooks";
 
 const Cred = () => {
+  const { token } = useAuth();
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentCategory, setCurrentCategory] = useState<
     "PERSONAL" | "FINANCE" | "PROFESSIONAL"
   >("PERSONAL");
 
-    const array = [
-      {
-        image: "https://example.com/image1.jpg",
-        name: "John Doe",
-        email: "john@example.com",
-      },
-      {
-        image: "https://example.com/image2.jpg",
-        name: "Jane Smith",
-        email: "jane@example.com",
-      },
-      {
-        image: "https://example.com/image3.jpg",
-        name: "Bob Johnson",
-        email: "bob@example.com",
-      },
-      {
-        image: "https://example.com/image4.jpg",
-        name: "Alice Brown",
-        email: "alice@example.com",
-      },
-      {
-        image: "https://example.com/image5.jpg",
-        name: "Charlie Davis",
-        email: "charlie@example.com",
-      },
-      {
-        image: "https://example.com/image6.jpg",
-        name: "Eva Wilson",
-        email: "eva@example.com",
-      },
-      {
-        image: "https://example.com/image6.jpg",
-        name: "Eva Wilson",
-        email: "eva@example.com",
-      },
-      {
-        image: "https://example.com/image6.jpg",
-        name: "Eva Wilson",
-        email: "eva@example.com",
-      },
-      {
-        image: "https://example.com/image6.jpg",
-        name: "Eva Wilson",
-        email: "eva@example.com",
-      },
-    ];
+  const { loading, response } = useFetch<Account[]>({
+    domain: "general",
+    endpoint: `category/${currentCategory}`,
+    feature: "accounts",
+    method: "GET",
+    accessToken: token,
+    includeToken: true,
+  });
 
   return (
     <SafeAreaView className="flex-1">
@@ -86,25 +49,41 @@ const Cred = () => {
         <Text className="text-xl font-semibold">Category</Text>
 
         <View className="w-full flex flex-row justify-between items-center ">
-          <TabCategory title="Personal">
+          <TabCategory
+            category={currentCategory}
+            setCategory={setCurrentCategory}
+            title="Personal"
+          >
             <CubeIcon />
           </TabCategory>
-          <TabCategory title="Finance">
+          <TabCategory
+            category={currentCategory}
+            setCategory={setCurrentCategory}
+            title="Finance"
+          >
             <WalletIcon />
           </TabCategory>
-          <TabCategory title="Professional">
+          <TabCategory
+            category={currentCategory}
+            setCategory={setCurrentCategory}
+            title="Professional"
+          >
             <GemIcon />
           </TabCategory>
         </View>
         <View className="mb-4">
-          <FlatList
-            data={array}
-            renderItem={({ index, item: { email, image, name } }) => (
-              <CredCard />
-            )}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-            scrollEnabled={false} // Prevent scrolling inside FlatList
-          />
+          {loading ? (
+            <View className="w-full flex flex-row justify-center items-center">
+              <Text className="text-xl font-semibold">Loading...</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={response?.data}
+              renderItem={({ index, item }) => <CredCard account={item} />}
+              ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+              scrollEnabled={false} // Prevent scrolling inside FlatList
+            />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

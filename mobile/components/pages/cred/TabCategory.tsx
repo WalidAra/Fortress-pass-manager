@@ -1,22 +1,52 @@
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text, Pressable } from "react-native";
 import React from "react";
+
+const categories = {
+  PERSONAL: {
+    primary:"bg-blue-400",
+    secondary:"bg-blue-100"
+  },
+  FINANCE: {
+    primary:"bg-red-400",
+    secondary:"bg-red-100"
+  },
+  PROFESSIONAL: {
+    primary:"bg-green-400",
+    secondary:"bg-green-100"
+  },
+}
 
 type Props = {
   children: React.ReactNode;
   title: string;
-  isActive?: boolean;
+  setCategory: (category: "PERSONAL" | "FINANCE" | "PROFESSIONAL") => void;
+  category: "PERSONAL" | "FINANCE" | "PROFESSIONAL";
 };
 
-const TabCategory = ({ children, title, isActive }: Props) => {
+const TabCategory = ({ children, title, category, setCategory }: Props) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      className=" flex items-center space-y-2 justify-center py-6  w-[30%] border border-border rounded-xl"
-    >
-      <View className="p-2 bg-slate-200 rounded-full">{children}</View>
+    <Pressable
+      onPress={() =>
+        setCategory(
+          title.toUpperCase() as "PERSONAL" | "FINANCE" | "PROFESSIONAL"
+        )
+      }
+      android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+      className={`flex items-center space-y-2 justify-center py-6 w-[30%] border border-border rounded-xl ${
+        category === title.toUpperCase()
+          ? categories[title.toUpperCase() as keyof typeof categories].secondary
+          : 'bg-transparent'
+      }`}    >
+      <View
+        className={`p-2 rounded-full ${
+          category === title.toUpperCase()
+            ? categories[title.toUpperCase() as keyof typeof categories].primary
+            : 'bg-slate-200'
+        }`}      >
+        {children}
+      </View>
       <Text className="text-xs font-semibold text-center">{title}</Text>
-    </TouchableOpacity>
-  );
+    </Pressable>  );
 };
 
-export default TabCategory;
+export default React.memo(TabCategory);

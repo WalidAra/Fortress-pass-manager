@@ -11,9 +11,25 @@ import { useLocalSearchParams } from "expo-router";
 import ImageIcon from "@/components/atoms/icons/ImageIcon";
 import MailIcon from "@/components/atoms/icons/MailIcon";
 import Key2Icon from "@/components/atoms/icons/Key2Icon";
+import { useAuth, useFetch } from "@/hooks";
 
 const AccountScreen = () => {
   const { id } = useLocalSearchParams();
+
+  const { token } = useAuth();
+
+  const { loading, response } = useFetch({
+    domain: "general",
+    endpoint: id as string,
+    method: "GET",
+    includeToken: true,
+    feature: "accounts",
+    accessToken: token,
+  });
+
+  console.log('====================================');
+  console.log(response);
+  console.log('====================================');
 
   return (
     <SafeAreaView className="flex-1">

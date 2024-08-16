@@ -15,7 +15,6 @@ export const getAccountByID = async (req: Request, res: Response) => {
         id: accountId,
         userId: id,
       },
-      select: accountSelection,
     });
 
     if (!account) {
