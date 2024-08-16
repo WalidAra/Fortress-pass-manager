@@ -17,6 +17,10 @@ const SavedPassStatus = () => {
     includeToken: true,
   });
 
+  console.log('====================================');
+  console.log(response);
+  console.log('====================================');
+
   return (
     <View className="w-[48%] p-4 border border-border rounded-xl">
       <IconFlag>

@@ -22,7 +22,7 @@ router
   .put("/update", updateAccount)
   .get("/recentAccounts", getRecentAccounts)
   .delete("/", deleteAccount)
-  .get("/savedPasswords", getSavedPasswords)
-  .get("/savedCreds", getSavedCreds);
+  .get("/saved/passwords", getSavedPasswords)
+  .get("/saved/creds", getSavedCreds);
 
 export default router;

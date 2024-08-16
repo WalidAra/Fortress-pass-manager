@@ -150,8 +150,8 @@ export const getSavedCreds = async (req: Request, res: Response) => {
   try {
     const accounts = await prisma.account.findMany({
       where: {
-        userId: id,
         globalCategory: "SAVED_CREDENTIALS",
+        userId: id,
       },
     });
 
@@ -180,8 +180,8 @@ export const getSavedPasswords = async (req: Request, res: Response) => {
   try {
     const accounts = await prisma.account.findMany({
       where: {
+        globalCategory: "SAVED_PASSWORD",
         userId: id,
-        globalCategory: "SAVED_CREDENTIALS",
       },
     });
 
