@@ -9,7 +9,8 @@
     "db:migrate": "npx prisma migrate dev",
     "db:studio": "npx prisma studio",
     "db:reset": "npx prisma migrate reset",
-    "db:seed": "node seed/index"
+    "db:seed": "node seed/index",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
