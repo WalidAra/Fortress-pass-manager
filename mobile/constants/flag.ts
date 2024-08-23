@@ -1,10 +1,10 @@
-enum Flag {
-  SOCIAL_MEDIA = "SOCIAL_MEDIA",
-  STREAMING_SERVICE = "STREAMING_SERVICE",
-  ONLINE_SHOPPING = "ONLINE_SHOPPING",
-  FINANCE = "FINANCE",
-  WORK = "WORK",
-  GAMING = "GAMING",
-}
+const Flag = [
+  "SOCIAL_MEDIA",
+  "STREAMING_SERVICE",
+  "ONLINE_SHOPPING",
+  "FINANCE",
+  "WORK",
+  "GAMING",
+] as const;
 
 export default Flag;

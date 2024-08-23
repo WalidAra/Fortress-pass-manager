@@ -8,7 +8,7 @@ type Icon = {
 type Fetch = {
   domain: "general" | "mobile";
   accessToken?: string;
-  feature: "auth" | "client" | "accounts" | "favorite" | "collection";
+  feature: "auth" | "client" | "accounts" | "favorite" | "collection"|"recent";
   endpoint: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
   body?: object;

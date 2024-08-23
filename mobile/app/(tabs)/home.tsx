@@ -6,7 +6,7 @@ import Main from "@/components/pages/home/Main";
 const Home = () => {
   return (
     <SafeAreaView className="flex-1">
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <StatusBar barStyle="light-content" />
       <ScrollView className="flex-1 w-full bg-background px-6">
         <Header />
         <AddNewCard />

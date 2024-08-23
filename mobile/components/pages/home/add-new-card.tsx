@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 
 const AddNewCard = () => {
+
   return (
     <View className="w-full mt-4 border border-border p-4 rounded-xl">
       <IconFlag>

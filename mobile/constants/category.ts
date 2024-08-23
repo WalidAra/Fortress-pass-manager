@@ -1,7 +1,3 @@
-const Category = {
-  PERSONAL: "PERSONAL",
-  FINANCE: "FINANCE",
-  PROFESSIONAL: "PROFESSIONAL",
-};
+const Category = ["PERSONAL", "FINANCE", "PROFESSIONAL"];
 
 export default Category;

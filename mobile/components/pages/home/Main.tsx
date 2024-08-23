@@ -8,8 +8,8 @@ const Main = () => {
 
   const { loading, response } = useFetch({
     domain: "general",
-    endpoint: "recentAccounts",
-    feature: "accounts",
+    endpoint: "all",
+    feature: "recent",
     method: "GET",
     accessToken: token,
     includeToken: true,
