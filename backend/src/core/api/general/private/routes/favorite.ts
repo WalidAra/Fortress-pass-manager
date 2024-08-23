@@ -1,9 +1,11 @@
-import { markFavAccount, deleteFavAccount } from "../../../../controllers";
+import { markFavAccount, deleteFavAccount, getFavAccounts } from "../../../../controllers";
 
 import express from "express";
 const router = express.Router();
 
-router.post("/create" , markFavAccount);
-router.delete("/delete", deleteFavAccount);
+router
+  .post("/create", markFavAccount)
+  .delete("/delete", deleteFavAccount)
+  .get("/all", getFavAccounts);
 
 export default router;

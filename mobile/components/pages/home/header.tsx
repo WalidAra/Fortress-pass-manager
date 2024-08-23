@@ -35,7 +35,6 @@ const Header = () => {
         />
 
         <Text className="text-foreground font-medium">
-          {" "}
           {response?.data.name}
         </Text>
       </TouchableOpacity>

@@ -5,8 +5,7 @@ import {
   getUserAccounts,
   getSavedPasswords,
   getSavedCreds,
-  getFavAccounts,
-  getRecentAccounts,
+
   getAccountsByCategory,
   getAccountByID,
 } from "../../../../controllers";
@@ -17,10 +16,9 @@ router
   .get("/:accountId", getAccountByID)
   .get("/", getUserAccounts)
   .post("/create", createAccount)
-  .get("favAccounts", getFavAccounts)
+
   .get("/category/:category", getAccountsByCategory)
   .put("/update", updateAccount)
-  .get("/recentAccounts", getRecentAccounts)
   .delete("/", deleteAccount)
   .get("/saved/passwords", getSavedPasswords)
   .get("/saved/creds", getSavedCreds);

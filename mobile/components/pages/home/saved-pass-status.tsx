@@ -5,6 +5,7 @@ import KeyIcon from "@/components/atoms/icons/KeyIcon";
 import { Link } from "expo-router";
 import RightArrow from "@/components/atoms/icons/RightArrow";
 import { useAuth, useFetch } from "@/hooks";
+import { Skeleton } from "native-base";
 
 const SavedPassStatus = () => {
   const { token } = useAuth();
@@ -17,12 +18,18 @@ const SavedPassStatus = () => {
     includeToken: true,
   });
 
-  console.log('====================================');
-  console.log(response);
-  console.log('====================================');
+
+  if (loading) {
+    return (
+      <View className="flex items-center justify-between">
+        <Skeleton className="w-[48%] h-36 rounded-xl" />
+        <Skeleton className="w-[48%] h-36 rounded-xl" />
+      </View>
+    );
+  }
 
   return (
-    <View className="w-[48%] p-4 border border-border rounded-xl">
+    <View className="w-[48%] p-4 border h-36 border-border rounded-xl">
       <IconFlag>
         <KeyIcon />
       </IconFlag>
